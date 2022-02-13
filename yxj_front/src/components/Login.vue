@@ -23,8 +23,8 @@
     data() {
       return {
         loginForm:{
-          username:'',
-          password:'',
+          username:'ziyu01',
+          password:'123456',
         }
       }
     },
@@ -35,14 +35,20 @@
           username : this.loginForm.username,
           password : this.loginForm.password
         })
-          .then(function (response) {
-            //console.log(response)
-            _this.$store.commit('login',)
+        .then(function (response) {
+          console.log(response.data.status)
+          if(response.data.status === 200){
+            _this.$store.commit('login',response.data.object)
             _this.$router.push({path:'/'})
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+          }
+          else {
+            alert("账号或密码错误")
+          }
+
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
       }
     }
   }
