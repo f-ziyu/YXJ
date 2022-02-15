@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <el-menu
       :default-active="'/home'"
       router
@@ -43,7 +43,12 @@
     top: 10px;
   }
   .el-menu-item{
+    position: center;
+    font-size: 18px;
+    padding-left: 30px;
+    padding-right: 30px;
     font-weight: bolder;
+    left: 120px;
   }
 
 </style>

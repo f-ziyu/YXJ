@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <nav-menu></nav-menu>
-    <router-view/>
-  </div>
+
+    <div class="main-page">
+      <nav-menu></nav-menu>
+      <router-view/>
+    </div>
+
 </template>
 
 <script>
@@ -13,6 +15,16 @@
     }
 </script>
 
-<style scoped>
+<style>
+  .main-page {
+    width: 80%;
+    height: 100%;
+    background: ;
+    border: 1px dashed #ccc;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+
 
 </style>

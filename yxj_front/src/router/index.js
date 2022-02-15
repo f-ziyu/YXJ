@@ -49,8 +49,6 @@ export default new Router({
           component:Community
         }
       ]
-
-
     }
   ]
 })

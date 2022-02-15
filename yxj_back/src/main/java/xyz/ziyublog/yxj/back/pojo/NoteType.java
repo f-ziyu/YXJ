@@ -7,15 +7,16 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "yxj_users")
+@Table(name = "yxj_note_type")
 @JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
-public class User {
+public class NoteType {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增
+    @Column(name = "type_id")
     int id;
 
-    String username;
-    String password;
-    String salt;
+    @Column(name = "type_name")
+    String name;
 }
+

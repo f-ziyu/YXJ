@@ -50,7 +50,6 @@ public class UserController {
         String username = user.getUsername();
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, user.getPassword());
-
         try {
             subject.login(usernamePasswordToken);
             return new Response(200, "success", usernamePasswordToken);

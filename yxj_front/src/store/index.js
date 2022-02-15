@@ -9,12 +9,11 @@ const store = new Vuex.Store({
   },
   mutations:{
     login(state, user){
-      state.currentUser=user
+      state.currentUser = user
       window.localStorage.setItem("user",JSON.stringify(user))
       //console.log(user)
     }
   }
 })
-
 
 export default store
