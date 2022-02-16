@@ -31,21 +31,21 @@ public class Note {
     private NoteType noteType;
 
     @Column(name = "content_html")
-    private String ContentHtml;
+    private String contentHtml;
 
     @Column(name = "content_md")
-    private String ContentMd;
+    private String contentMd;
 
     @Column(name = "created_time")
-    private Timestamp CreatedTime;
+    private Timestamp createdTime;
 
     @Column(name = "last_modified_time")
-    private Timestamp LastModifiedTime;
+    private Timestamp lastModifiedTime;
 
     @Column(name = "note_is_public")
-    private boolean IsPublic;
+    private int isPublic;
 
     @Column(name = "note_is_delete")
-    private boolean IsDelete;
+    private int isDelete;
 
 }

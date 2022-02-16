@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xyz.ziyublog.yxj.back.pojo.Note;
 import xyz.ziyublog.yxj.back.pojo.NoteType;
+import xyz.ziyublog.yxj.back.response.Response;
 import xyz.ziyublog.yxj.back.service.NoteService;
 import xyz.ziyublog.yxj.back.service.NoteTypeService;
 
@@ -34,5 +35,19 @@ public class NoteController {
         return noteService.getNotesByUserAndNoteType(username,noteTypeId);
     }
 
+    @CrossOrigin
+    @GetMapping("/api/noteTypes/{username}/notes")
+    @ResponseBody
+    public List<Note> getNotesByUser(@PathVariable("username") String username){
+        return noteService.getNotesByUser(username);
+    }
+
+    @CrossOrigin
+    @GetMapping("/api/note/getNoteById/{id}")
+    @ResponseBody
+    public Response getNoteById(@PathVariable("id") int noteId){
+        Note note = noteService.getNoteById(noteId);
+        return new Response(200, "成功", note);
+    }
 
 }

@@ -1,5 +1,4 @@
 <template>
-
     <div class="main-page">
       <nav-menu></nav-menu>
       <router-view/>
@@ -18,8 +17,7 @@
 <style>
   .main-page {
     width: 80%;
-    height: 100%;
-    background: ;
+    background: #ccccac;
     border: 1px dashed #ccc;
     margin: 0 auto;
     padding: 0;

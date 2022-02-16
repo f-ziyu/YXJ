@@ -27,4 +27,17 @@ public class NoteService {
         User user = userDao.findByUsername(username);
         return noteDao.findAllByAuthorAndNoteType(user,noteType);
     }
+
+    public List<Note> getNotesByUser(String username){
+        User user = userDao.findByUsername(username);
+        return noteDao.findAllByAuthor(user);
+    }
+
+    public Note getNoteById(int noteId){
+        return noteDao.findById(noteId);
+    }
+
+    public int updateNote(Note note){
+        return 1;
+    }
 }

@@ -20,25 +20,27 @@
 
           };
       },
+      mounted() {
+
+      },
       methods:{
           getUserNotes(){
             //需要修改存储cookie的方式
             var _this = this
-            var noteTypeId = this.$refs.noteTypeBar.currentNTid
             var username = "ziyu01"
-            this.axios.get("/noteTypes/"+username+"/"+noteTypeId+"/notes")
-            .then(function (response) {
-              if(response.status === 200){
-                _this.$refs.notes.notes = response.data
-              }
-              console.log(response)
-            })
-
-
-
+            var noteTypeId = this.$refs.noteTypeBar.currentNTid
+            var getNotesUrl = "/noteTypes/"+username+"/"+noteTypeId+"/notes"
+            if(noteTypeId === "allNotesOfUser"){
+              getNotesUrl="/noteTypes/"+username+"/notes"
+            }
+            this.axios.get(getNotesUrl)
+              .then(function (response) {
+                if(response.status === 200){
+                  _this.$refs.notes.notes = response.data
+                }
+              })
           }
-      }
-
+      },
     }
 </script>
 

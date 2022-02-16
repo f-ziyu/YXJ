@@ -7,6 +7,8 @@ import Index from "../components/Index";
 import Home from "../components/home/Home";
 import NoteShelf from "../components/noteshelf/NoteShelf";
 import Community from "../components/community/Community";
+import User from "../components/user/User";
+import NoteEdit from "../components/note/NoteEdit";
 
 Vue.use(Router)
 
@@ -28,6 +30,11 @@ export default new Router({
       component: Login
     },
     {
+      path:'/note/edit',
+      name:'NoteEdit',
+      component:NoteEdit
+    },
+    {
       path: '/',
       name: 'Index',
       component: Index,
@@ -47,7 +54,12 @@ export default new Router({
           path:'/community',
           name:'Community',
           component:Community
-        }
+        },
+        {
+          path:'/user',
+          name:'User',
+          component:User
+        },
       ]
     }
   ]

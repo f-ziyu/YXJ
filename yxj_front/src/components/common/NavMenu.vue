@@ -20,9 +20,10 @@
           return {
             navList:[
               {name:'首页',url:'/'},
-              {name:'笔记',url:'/notes'},
+              {name:'写笔记',url:'/note/edit'},
+              {name:'笔记库',url:'/notes'},
               {name:'社区',url:'/community'},
-              {name:'个人中心',url:'/aboutuser'}
+              {name:'个人中心',url:'/user'}
             ],
           };
         },

@@ -3,12 +3,13 @@
     <el-card v-for="(item,i) in notes" :key="i"  class="box-card">
       <div slot="header" class="clearFix">
         <span style="float: left;margin-left: 100px">{{item.title}}</span>
-        <span style="float: bottom;margin-left: 200px;margin-bottom:2px;font-size: 12px">最近修改时间:{{item.lastModifiedTime}}</span>
+        <span style="float: bottom;margin-left: 200px;margin-bottom:2px;font-size: 14px">{{item.isPublic}}公开笔记</span>
+        <span style="float: bottom;margin-left: 20px;margin-bottom:2px;font-size: 12px">最近修改时间:{{item.lastModifiedTime}}</span>
         <el-tooltip transition="0s" class="item" content="删除笔记" placement="top-start">
           <el-button style="float: right; padding: 5px 0;margin-right: 70px" type="text"><i class="el-icon-delete"></i></el-button>
         </el-tooltip>
         <el-tooltip transition="0s" class="item" content="编辑笔记" placement="top-start">
-          <el-button style="float: right; padding: 5px 0;margin-right: 10px" type="text"><i class="el-icon-edit"></i></el-button>
+          <el-button @click="editNote(item.id)" style="float: right; padding: 5px 0;margin-right: 10px" type="text"><i class="el-icon-edit"></i></el-button>
         </el-tooltip>
         <el-tooltip transition="0s" class="item" content="查看笔记" placement="top">
           <el-button style="float: right; padding: 5px 0;" type="text"><i class="el-icon-reading"></i></el-button>
@@ -35,7 +36,34 @@
           return{
             notes:[]
           }
+        },
+      mounted() {
+        var _this = this
+        var username = "ziyu01"
+        this.axios.get("/noteTypes/"+username+"/notes")
+          .then(function (response) {
+            if(response.status === 200){
+              _this.notes = response.data
+            }
+          })
+        function isPublic(Public){
+          if(Public === true){
+            return("公开")
+          }
         }
+      },
+
+      methods:{
+          editNote(id){
+            this.$router.push({
+              path:'note/edit',
+              name:'NoteEdit',
+              params:{
+                noteId:id
+              }
+            })
+          }
+      }
     }
 </script>
 

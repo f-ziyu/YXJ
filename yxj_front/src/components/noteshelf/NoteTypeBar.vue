@@ -1,8 +1,10 @@
 <template>
-  <el-tabs :tab-position="tabPosition" style="height: 300px;" v-model="currentNTid" @tab-click="handleClick">
+  <el-tabs :tab-position="tabPosition" style="height: 300px;" v-model="currentNTid" @tab-click="handleClick" class="noteTypeBar">
+    <div style="height: 50px"></div>
+    <el-tab-pane label="全部笔记"  name="allNotesOfUser"></el-tab-pane>
     <el-tab-pane v-for="(item,i) in noteTypes"  :label="item.name" :key="i" :name="item.id.toString()">
-
     </el-tab-pane>
+
   </el-tabs>
 </template>
 
@@ -11,7 +13,7 @@
         name: "NoteTypeBar",
         data(){
           return{
-            currentNTid:"107",
+            currentNTid:"allNotesOfUser",
             tabPosition: 'left',
             noteTypes:[]
           };
@@ -23,8 +25,7 @@
               if(response.status === 200){
                 _this.noteTypes = response.data
               }
-              console.log(response)
-            })
+            });
         },
         methods:{
           handleClick(tab, event){
@@ -35,5 +36,8 @@
 </script>
 
 <style scoped>
+  .noteTypeBar{
+    height: 1000px;
+  }
 
 </style>

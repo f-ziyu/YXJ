@@ -10,8 +10,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from "axios";
 import VueAxios from "vue-axios";
 
-
 import store from "./store/index";
+
+import mavonEditor from "mavon-editor"
+import 'mavon-editor/dist/css/index.css'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -19,6 +21,8 @@ Vue.use(ElementUI)
 axios.defaults.baseURL = "/api"
 axios.defaults.withCredentials = true
 Vue.use(VueAxios,axios)
+
+Vue.use(mavonEditor)
 
 
 /* eslint-disable no-new */
