@@ -2,7 +2,7 @@
   <div>
     <div style="height: 100px;">
       <div>
-        <el-button style="float: left" type="text"><i  class="el-icon-d-arrow-left">退出编辑</i></el-button>
+        <el-button style="float: left" type="text"><i href="javascript:history.go(-1)"  class="el-icon-d-arrow-left">退出编辑</i></el-button>
         <input class="edit-title" v-model="note.title" placeholder="请输入笔记题目"></input>
 
         <div style="float: right;margin-right: 40px">
@@ -35,15 +35,16 @@
       data(){
         return{
           note:{
-            id: 0,
-            title:'',
-            describe:'',
-            noteType:'',
-            contentHtml:'',
-            contentMd:'',
-            createdTime:'',
-            lastModifiedTime:'',
-            isPublic:"1",
+            id: null,
+            title:null,
+            author:null,
+            describe:null,
+            noteType:null,
+            contentHtml:null,
+            contentMd:null,
+            createdTime:null,
+            lastModifiedTime:null,
+            isPublic:"0",
           }
         }
       },
@@ -55,26 +56,55 @@
       methods:{
         loadNote(id){
           var _this = this
-          this.axios.get('note/getNoteById/'+id.toString())
+          this.axios.get('note/getNote',{
+            params:{
+              noteId:id
+            }
+
+          })
           .then(function (response) {
             if (response.status === 200){
               _this.note=response.data.object
-              _this.note.isPublic = _this.note.isPublic.toString()
+              this.note.isPublic = response.data.object.isPublic.toString()
             }else {
               console.log(response.status)
             }
           })
           .catch(function (error) {
-            console.log(error.toString())
+            console.log(error)
           })
         },
         saveNote(){
           if(this.note.id===0){
-            console.log("新增笔记")
+            this.addNote()
           }else {
-            console.log("添加笔记：笔记id为"+this.note.id)
+            this.updateNote()
           }
+        },
+        addNote(){
+          console.log("添加笔记")
+          this.note.isPublic=parseInt(this.note.isPublic)
+          this.note.author=localStorage.getItem("user")
+          this.axios.post('/note/addNote',this.note)
+            .then(function (response) {
+              console.log(response)
+            })
+            .then(function (error) {
+              console.log(error)
+            })
+        },
+        updateNote(){
+          console.log("修改笔记")
+          this.note.isPublic=parseInt(this.note.isPublic)
+          this.axios.post('/note/updateNote',this.note)
+          .then(function (response) {
+            console.log(response)
+          })
+          .then(function (error) {
+            console.log(error)
+          })
         }
+
       }
     }
 </script>

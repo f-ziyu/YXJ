@@ -29,7 +29,7 @@
     },
     methods: {
       onSubmit(){
-        this.axios.post("/register",{
+        this.axios.post("/user/register",{
           username : this.registerForm.username,
           password : this.registerForm.password
         })

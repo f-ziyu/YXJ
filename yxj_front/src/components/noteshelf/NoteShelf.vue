@@ -27,16 +27,20 @@
           getUserNotes(){
             //需要修改存储cookie的方式
             var _this = this
-            var username = "ziyu01"
+            var username = JSON.parse(localStorage.getItem("user")).username;
             var noteTypeId = this.$refs.noteTypeBar.currentNTid
-            var getNotesUrl = "/noteTypes/"+username+"/"+noteTypeId+"/notes"
             if(noteTypeId === "allNotesOfUser"){
-              getNotesUrl="/noteTypes/"+username+"/notes"
+              noteTypeId = null
             }
-            this.axios.get(getNotesUrl)
+            this.axios.get("/note/getNotes",{
+              params:{
+                'username': username,
+                'noteTypeId': noteTypeId,
+              }
+            })
               .then(function (response) {
                 if(response.status === 200){
-                  _this.$refs.notes.notes = response.data
+                  _this.$refs.notes.notes = response.data.object
                 }
               })
           }

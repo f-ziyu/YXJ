@@ -1,0 +1,5 @@
+2022-02-28 22:43:32.035 -- [http-nio-8529-exec-1] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_author_id' cannot be null
+2022-02-28 22:43:40.402 -- [http-nio-8529-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_author_id' cannot be null
+2022-02-28 22:50:27.203 -- [http-nio-8529-exec-1] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_author_id' cannot be null
+2022-02-28 22:51:59.114 -- [http-nio-8529-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_author_id' cannot be null
+2022-02-28 22:57:44.633 -- [http-nio-8529-exec-1] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_author_id' cannot be null

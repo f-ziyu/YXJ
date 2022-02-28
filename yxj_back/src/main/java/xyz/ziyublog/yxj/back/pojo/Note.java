@@ -43,9 +43,9 @@ public class Note {
     private Timestamp lastModifiedTime;
 
     @Column(name = "note_is_public")
-    private int isPublic;
+    private Integer isPublic;
 
     @Column(name = "note_is_delete")
-    private int isDelete;
+    private Integer isDelete;
 
 }

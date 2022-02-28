@@ -3,7 +3,10 @@
     <el-card v-for="(item,i) in notes" :key="i"  class="box-card">
       <div slot="header" class="clearFix">
         <span style="float: left;margin-left: 100px">{{item.title}}</span>
-        <span style="float: bottom;margin-left: 200px;margin-bottom:2px;font-size: 14px">{{item.isPublic}}公开笔记</span>
+
+        <div style="float: right;margin-right: 40px">
+          <el-radio v-model="item.isPublic.toString()" label="1" @click="updateNotePublicStatus(item.id)" >公开</el-radio>
+        </div>
         <span style="float: bottom;margin-left: 20px;margin-bottom:2px;font-size: 12px">最近修改时间:{{item.lastModifiedTime}}</span>
         <el-tooltip transition="0s" class="item" content="删除笔记" placement="top-start">
           <el-button style="float: right; padding: 5px 0;margin-right: 70px" type="text"><i class="el-icon-delete"></i></el-button>
@@ -39,30 +42,48 @@
         },
       mounted() {
         var _this = this
-        var username = "ziyu01"
-        this.axios.get("/noteTypes/"+username+"/notes")
-          .then(function (response) {
-            if(response.status === 200){
-              _this.notes = response.data
+        var username = JSON.parse(localStorage.getItem("user")).username;
+        this.axios.get("/note/getNotes",{
+          params:{
+            'username':username
+          }
+        })
+        .then(function (response) {
+          if(response.status === 200){
+            _this.notes = response.data.object
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+
+      },
+      methods:{
+        editNote(id){
+          this.$router.push({
+            path:'note/edit',
+            name:'NoteEdit',
+            params:{
+              noteId:id
             }
           })
-        function isPublic(Public){
-          if(Public === true){
-            return("公开")
-          }
-        }
-      },
-
-      methods:{
-          editNote(id){
-            this.$router.push({
-              path:'note/edit',
-              name:'NoteEdit',
-              params:{
-                noteId:id
+        },
+        updateNotePublicStatus(noteId){
+          this.axios.get("/note/updatePublicStatus",{
+            params:{
+              noteId:noteId
+            }
+          })
+            .then(function (response) {
+              if(response.status === 200){
+                location.reload();
               }
             })
-          }
+            .catch(function (error) {
+              console.log(error)
+            })
+        }
+
       }
     }
 </script>

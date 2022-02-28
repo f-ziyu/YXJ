@@ -31,7 +31,7 @@
     methods: {
       onSubmit(){
         var _this = this
-        this.axios.post("/login",{
+        this.axios.post("/user/login",{
           username : this.loginForm.username,
           password : this.loginForm.password
         })

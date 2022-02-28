@@ -1,4 +1,4 @@
-package xyz.ziyublog.yxj.back.response;
+package xyz.ziyublog.yxj.back.util;
 
 public class Response {
     private int status;
@@ -32,6 +32,12 @@ public class Response {
     }
 
     public void setObject(Object object) {
+        this.object = object;
+    }
+
+    public void setResponse(int status, String msg, Object object) {
+        this.status = status;
+        this.msg = msg;
         this.object = object;
     }
 }
