@@ -1,0 +1,1 @@
+2022-03-05 10:52:32.481 -- [http-nio-8529-exec-3] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'created_time' cannot be null

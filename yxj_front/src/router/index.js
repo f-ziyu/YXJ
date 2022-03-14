@@ -9,6 +9,8 @@ import NoteShelf from "../components/noteshelf/NoteShelf";
 import Community from "../components/community/Community";
 import User from "../components/user/User";
 import NoteEdit from "../components/note/NoteEdit";
+import NoteRead from "../components/note/NoteRead";
+
 
 Vue.use(Router)
 
@@ -59,6 +61,11 @@ export default new Router({
           path:'/user',
           name:'User',
           component:User
+        },
+        {
+          path:'/note/reading',
+          name:'NoteRead',
+          component:NoteRead
         },
       ]
     }

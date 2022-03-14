@@ -58,7 +58,7 @@ public class UserController {
             subject.login(usernamePasswordToken);
             return new Response(200, "success", usernamePasswordToken);
         }catch (AuthenticationException e){
-            log.info("<< 获得笔记失败:\n {}", e);
+            log.info("<< 登陆失败:\n {}", e);
             return new Response(500,"failure",e);
         }
     }

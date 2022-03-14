@@ -1,7 +1,6 @@
 package xyz.ziyublog.yxj.back.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -9,9 +8,12 @@ import xyz.ziyublog.yxj.back.dao.NoteDao;
 import xyz.ziyublog.yxj.back.dao.NoteTypeDao;
 import xyz.ziyublog.yxj.back.dao.UserDao;
 import xyz.ziyublog.yxj.back.pojo.Note;
+import xyz.ziyublog.yxj.back.forFrontClass.NoteInfor;
 import xyz.ziyublog.yxj.back.pojo.NoteType;
 import xyz.ziyublog.yxj.back.pojo.User;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -29,11 +31,11 @@ public class NoteService {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    // 通过用户和笔记类型获得笔记
     public List<Note> getNotesByUserAndNoteType(String username, int noteTypeID){
-
         NoteType noteType = noteTypeDao.getById(noteTypeID);
         User user = userDao.findByUsername(username);
-        return noteDao.findAllByAuthorAndNoteType(user,noteType);
+        return noteDao.findAllByAuthorAndNoteTypeAndIsDelete(user,noteType,0);
     }
 
     // 更新笔记
@@ -42,8 +44,8 @@ public class NoteService {
         noteDao.save(note);
 
         String key = "note_" + note.getId();
-        boolean haskey = redisTemplate.hasKey(key);
-        if (haskey) {
+        boolean hashKey = redisTemplate.hasKey(key);
+        if (hashKey) {
             redisTemplate.delete(key);
             System.out.println("删除缓存中的key-----------> " + key);
         }
@@ -65,10 +67,24 @@ public class NoteService {
         }
         updateNote(note);
     }
+
+    // 将笔记移入回收站
+    public void moveNoteInRecyclerByNoteId(int noteId){
+        Note note = noteDao.findById(noteId);
+        note.setIsDelete(1);
+        updateNote(note);
+    }
+
+    // 将笔记移出回收站
+    public void moveNoteOutRecyclerByNoteId(int noteId){
+        Note note = noteDao.findById(noteId);
+        note.setIsDelete(0);
+        updateNote(note);
+    }
     
     public List<Note> getNotesByUser(String username){
         User user = userDao.findByUsername(username);
-        return noteDao.findAllByAuthor(user);
+        return noteDao.findAllByAuthorAndIsDelete(user,0);
     }
 
     public Note getNoteById(int noteId){
@@ -90,4 +106,35 @@ public class NoteService {
             return note;
         }
     }
+
+    // 删除笔记
+    public boolean deleteNoteById(int noteId){
+        boolean result=false;
+        ValueOperations<String, Note> operations = redisTemplate.opsForValue();
+        String key = "note_" + noteId;
+        // 删除缓存
+        boolean hasKey = redisTemplate.hasKey(key);
+        if (hasKey) {
+            redisTemplate.delete(key);
+        }
+        // 删除数据库
+        int res = noteDao.deleteById(noteId);
+        if(res == 1){
+            result = true;
+        }
+        return result;
+    }
+
+
+
+
+
+    public static String timeStamp2Date(String seconds) {
+        if (seconds == null || seconds.isEmpty() || seconds.equals("null")) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date(Long.valueOf(seconds + "000")));
+    }
+
 }

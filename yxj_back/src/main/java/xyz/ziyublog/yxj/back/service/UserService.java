@@ -16,12 +16,12 @@ public class UserService {
     @Autowired
     private RedisTemplate redisTemplate;
 
+
     public User getUserByUsername(String username){
         ValueOperations<String, User> operations = redisTemplate.opsForValue();
         String key = "username_" + username;
         //判断redis中是否有键为key的缓存
         boolean hasKey = redisTemplate.hasKey(key);
-
         if (hasKey) {
             User user = operations.get(key);
             System.out.println("从缓存中获得数据："+user.getUsername());
@@ -31,7 +31,26 @@ public class UserService {
             User user = userDao.findByUsername(username);
             System.out.println("查询数据库获得数据："+user.getUsername());
             System.out.println("------------------------------------");
+            // 写入缓存
+            operations.set(key, user, 5, TimeUnit.HOURS);
+            return user;
+        }
+    }
 
+    public User getUserByID(int id){
+        ValueOperations<String, User> operations = redisTemplate.opsForValue();
+        String key = "userId_" + id;
+        //判断redis中是否有键为key的缓存
+        boolean hasKey = redisTemplate.hasKey(key);
+        if (hasKey) {
+            User user = operations.get(key);
+            System.out.println("从缓存中获得数据");
+            System.out.println("------------------------------------");
+            return user;
+        } else {
+            User user = userDao.findById(id);
+            System.out.println("查询数据库获得数据"+user.getUsername());
+            System.out.println("------------------------------------");
             // 写入缓存
             operations.set(key, user, 5, TimeUnit.HOURS);
             return user;
