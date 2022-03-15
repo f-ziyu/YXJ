@@ -37,6 +37,11 @@ export default new Router({
       component:NoteEdit
     },
     {
+      path:'/note/reading',
+      name:'NoteRead',
+      component:NoteRead
+    },
+    {
       path: '/',
       name: 'Index',
       component: Index,
@@ -62,11 +67,7 @@ export default new Router({
           name:'User',
           component:User
         },
-        {
-          path:'/note/reading',
-          name:'NoteRead',
-          component:NoteRead
-        },
+
       ]
     }
   ]

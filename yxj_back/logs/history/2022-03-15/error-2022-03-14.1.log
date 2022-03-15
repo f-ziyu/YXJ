@@ -1,0 +1,23 @@
+2022-03-14 21:56:52.056 -- [http-nio-8529-exec-10] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - HikariPool-1 - Connection is not available, request timed out after 30004ms.
+2022-03-14 21:56:52.057 -- [http-nio-8529-exec-10] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2022-03-14 21:56:52.368 -- [http-nio-8529-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - HikariPool-1 - Connection is not available, request timed out after 30014ms.
+2022-03-14 21:56:52.368 -- [http-nio-8529-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2022-03-14 21:57:13.678 -- [http-nio-8529-exec-1] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - HikariPool-1 - Connection is not available, request timed out after 30000ms.
+2022-03-14 21:57:13.678 -- [http-nio-8529-exec-1] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2022-03-14 21:57:13.988 -- [http-nio-8529-exec-3] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - HikariPool-1 - Connection is not available, request timed out after 30000ms.
+2022-03-14 21:57:13.988 -- [http-nio-8529-exec-3] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2022-03-14 22:29:00.290 -- [http-nio-8529-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null
+2022-03-14 22:52:26.289 -- [http-nio-8529-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'last_modified_time' cannot be null
+2022-03-14 23:25:17.922 -- [http-nio-8529-exec-5] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null
+2022-03-14 23:25:59.332 -- [http-nio-8529-exec-7] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null
+2022-03-14 23:26:09.832 -- [http-nio-8529-exec-8] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null
+2022-03-14 23:26:16.737 -- [http-nio-8529-exec-10] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null
+2022-03-14 23:27:21.472 -- [http-nio-8529-exec-9] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null

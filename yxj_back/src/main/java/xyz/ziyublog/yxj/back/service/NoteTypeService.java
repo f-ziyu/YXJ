@@ -15,8 +15,11 @@ public class NoteTypeService {
     NoteTypeDao noteTypeDao;
 
     public List<NoteType> getAllNoteType(){
-
         return noteTypeDao.findAll(Sort.by(Sort.Direction.DESC,"id"));
+    }
+
+    public NoteType getTypeById(int typeId){
+        return noteTypeDao.getById(typeId);
     }
 
 

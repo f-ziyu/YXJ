@@ -56,31 +56,6 @@ public class NoteService {
             System.out.println("更新缓存中的key-----------> " + key);
         }
     }
-
-    // 更新笔记公开状态
-    public void updateNotePublicStatus(int noteId){
-        Note note = noteDao.findById(noteId);
-        if(note.getIsPublic() == 1){
-            note.setIsPublic(0);
-        }else {
-            note.setIsPublic(1);
-        }
-        updateNote(note);
-    }
-
-    // 将笔记移入回收站
-    public void moveNoteInRecyclerByNoteId(int noteId){
-        Note note = noteDao.findById(noteId);
-        note.setIsDelete(1);
-        updateNote(note);
-    }
-
-    // 将笔记移出回收站
-    public void moveNoteOutRecyclerByNoteId(int noteId){
-        Note note = noteDao.findById(noteId);
-        note.setIsDelete(0);
-        updateNote(note);
-    }
     
     public List<Note> getNotesByUser(String username){
         User user = userDao.findByUsername(username);
@@ -125,16 +100,42 @@ public class NoteService {
         return result;
     }
 
-
-
-
-
-    public static String timeStamp2Date(String seconds) {
-        if (seconds == null || seconds.isEmpty() || seconds.equals("null")) {
-            return "";
+    // 更新笔记公开状态
+    public void updateNotePublicStatus(int noteId){
+        Note note = noteDao.findById(noteId);
+        if(note.getIsPublic() == 1){
+            note.setIsPublic(0);
+        }else {
+            note.setIsPublic(1);
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return sdf.format(new Date(Long.valueOf(seconds + "000")));
+        updateNote(note);
     }
+
+    // 修改笔记的笔记类型
+    public void updateTypeOfNote(int noteId,int typeId){
+        Note note = noteDao.findById(noteId);
+        if(typeId<=0){
+            note.setNoteType(null);
+
+        }else {
+            note.setNoteType(noteTypeDao.getById(typeId));
+        }
+        updateNote(note);
+    }
+
+    // 将笔记移入回收站
+    public void moveNoteInRecyclerByNoteId(int noteId){
+        Note note = noteDao.findById(noteId);
+        note.setIsDelete(1);
+        updateNote(note);
+    }
+
+    // 将笔记移出回收站
+    public void moveNoteOutRecyclerByNoteId(int noteId){
+        Note note = noteDao.findById(noteId);
+        note.setIsDelete(0);
+        updateNote(note);
+    }
+
 
 }
