@@ -17,8 +17,9 @@
 <style>
   .main-page {
     width: 80%;
-    background: #ccccac;
-    border: 1px dashed #ccc;
+    height: 100%;
+    /*background: #ccccac;*/
+    /*border: 1px dashed #ccc;*/
     margin: 0 auto;
     padding: 0;
   }

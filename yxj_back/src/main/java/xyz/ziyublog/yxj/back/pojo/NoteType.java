@@ -18,5 +18,6 @@ public class NoteType {
 
     @Column(name = "type_name")
     String name;
+
 }
 

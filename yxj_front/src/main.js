@@ -9,7 +9,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import axios from "axios";
 import VueAxios from "vue-axios";
-
 import store from "./store/index";
 
 import mavonEditor from "mavon-editor"
@@ -24,6 +23,23 @@ Vue.use(VueAxios,axios)
 
 Vue.use(mavonEditor)
 
+router.beforeEach((to,from,next)=>{
+  if(to.meta.requireAuth){
+    if(store.state.currentUser !==null && store.state.currentUser){
+      next()
+    }
+    else {
+      next({
+        path:'/login',
+        query:{redirect:to.fullPath}
+      })
+    }
+  }
+  else {
+    next()
+  }
+})
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -33,3 +49,5 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+

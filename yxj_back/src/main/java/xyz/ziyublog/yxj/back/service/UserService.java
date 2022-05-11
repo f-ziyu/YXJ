@@ -20,18 +20,12 @@ public class UserService {
     public User getUserByUsername(String username){
         ValueOperations<String, User> operations = redisTemplate.opsForValue();
         String key = "username_" + username;
-        //判断redis中是否有键为key的缓存
         boolean hasKey = redisTemplate.hasKey(key);
         if (hasKey) {
             User user = operations.get(key);
-            System.out.println("从缓存中获得数据："+user.getUsername());
-            System.out.println("------------------------------------");
             return user;
         } else {
             User user = userDao.findByUsername(username);
-            System.out.println("查询数据库获得数据："+user.getUsername());
-            System.out.println("------------------------------------");
-            // 写入缓存
             operations.set(key, user, 5, TimeUnit.HOURS);
             return user;
         }
@@ -40,29 +34,30 @@ public class UserService {
     public User getUserByID(int id){
         ValueOperations<String, User> operations = redisTemplate.opsForValue();
         String key = "userId_" + id;
-        //判断redis中是否有键为key的缓存
         boolean hasKey = redisTemplate.hasKey(key);
-        if (hasKey) {
+        if(hasKey) {
             User user = operations.get(key);
-            System.out.println("从缓存中获得数据");
-            System.out.println("------------------------------------");
             return user;
         } else {
             User user = userDao.findById(id);
-            System.out.println("查询数据库获得数据"+user.getUsername());
-            System.out.println("------------------------------------");
-            // 写入缓存
             operations.set(key, user, 5, TimeUnit.HOURS);
             return user;
         }
     }
 
+
     public boolean isExist(String username){
-        User user = getUserByUsername(username);
-        return user!=null;
+        return userDao.existsByUsername(username);
     }
 
     public void addUser(User user){
+        ValueOperations<String, User> operations = redisTemplate.opsForValue();
+        String key = "username_" + user.getUsername();
+        boolean hasKey = redisTemplate.hasKey(key);
+        if (hasKey) {
+            redisTemplate.delete(key);
+        }
         userDao.save(user);
+        operations.set(key, user, 5, TimeUnit.HOURS);
     }
 }

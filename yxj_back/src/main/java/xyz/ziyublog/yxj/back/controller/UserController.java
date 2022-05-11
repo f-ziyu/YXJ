@@ -26,16 +26,14 @@ public class UserController {
     @CrossOrigin
     @PostMapping("api/user/register")
     @ResponseBody
-    public String Register(@RequestBody User user){
+    public Response Register(@RequestBody User user){
         String username =user.getUsername();
         username = HtmlUtils.htmlEscape(username);
         user.setUsername(username);
-        System.out.println("-----------------------"+username);
         String password = user.getPassword();
-
         boolean isExist = userService.isExist(username);
         if(isExist){
-            return "该用户（"+username+"）名已经存在";
+            return new Response(201,"该用户（"+username+"）已经存在",null);
         }
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
         int times = 2;
@@ -44,22 +42,87 @@ public class UserController {
         user.setSalt(salt);
         user.setPassword(pwdAfterHash);
         userService.addUser(user);
-        return "注册成功";
+        return new Response(200,"注册成功",null);
     }
     @ApiOperation("用户登录")
     @CrossOrigin
     @PostMapping("api/user/login")
     @ResponseBody
     public Response login(@RequestBody User user){
-        String username = user.getUsername();
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, user.getPassword());
         try {
-            subject.login(usernamePasswordToken);
-            return new Response(200, "success", usernamePasswordToken);
+            String username = user.getUsername();
+            int times = 2;
+            String algorithm = "md5";
+            if(userService.isExist(username)){
+                // 验证旧密码
+                User oldUser = userService.getUserByUsername(username);
+                String oldSalt = oldUser.getSalt();
+                String oldPassword = oldUser.getPassword();
+                String PwdAfterHash = new SimpleHash(algorithm,user.getPassword(),oldSalt,times).toString();
+                if(oldPassword.equals(PwdAfterHash)){
+                    Subject subject = SecurityUtils.getSubject();
+                    UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, user.getPassword());
+                    subject.login(usernamePasswordToken);
+                    return new Response(200, "success", usernamePasswordToken);
+                }else {
+                    return new Response(500,"failure","密码不正确");
+                }
+            }else {
+                return new Response(500,"failure","用户不存在");
+            }
         }catch (AuthenticationException e){
             log.info("<< 登陆失败:\n {}", e);
             return new Response(500,"failure",e);
         }
+    }
+    @ApiOperation("用户修改密码")
+    @CrossOrigin
+    @PostMapping("api/user/modifyPassword")
+    @ResponseBody
+    public Response modifyPassword(@RequestBody User user){
+        try {
+            String username = user.getUsername();
+            int times = 2;
+            String algorithm = "md5";
+            String newPassword = user.getSalt();
+            // 验证旧密码
+            User oldUser = userService.getUserByUsername(username);
+            String oldSalt = oldUser.getSalt();
+            String oldPassword = oldUser.getPassword();
+            String OldPwdAfterHash = new SimpleHash(algorithm,user.getPassword(),oldSalt,times).toString();
+            if(oldPassword.equals(OldPwdAfterHash)){
+                // 设置新密码
+                String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+                String pwdAfterHash = new SimpleHash(algorithm,newPassword,salt,times).toString();
+                oldUser.setSalt(salt);
+                oldUser.setPassword(pwdAfterHash);
+                userService.addUser(oldUser);
+                Subject subject = SecurityUtils.getSubject();
+                subject.logout();
+                return new Response(200, "success", null);
+            }else {
+                return new Response(500,"failure","旧密码不正确");
+            }
+
+        }catch (AuthenticationException e){
+            log.info("<< 登陆失败:\n {}", e);
+            return new Response(500,"failure",e);
+        }
+    }
+
+    @ApiOperation("退出登录")
+    @CrossOrigin
+    @GetMapping("api/logout")
+    @ResponseBody
+    public Response logout(){
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            subject.logout();
+            return new Response(200,"退出登录",null);
+        }catch (AuthenticationException e){
+            log.info("<< 退出失败:\n {}", e);
+            return new Response(500,"failure",e);
+        }
+
     }
 }

@@ -12,6 +12,10 @@ const store = new Vuex.Store({
       state.currentUser = user
       window.localStorage.setItem("user",JSON.stringify(user))
       //console.log(user)
+    },
+    logout(state){
+      state.currentUser=[]
+      window.localStorage.removeItem("user")
     }
   }
 })

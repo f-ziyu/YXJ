@@ -1,0 +1,3 @@
+2022-04-10 21:29:54.056 -- [http-nio-8529-exec-1] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null
+2022-04-10 21:30:07.782 -- [http-nio-8529-exec-4] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null
+2022-04-10 21:30:11.283 -- [http-nio-8529-exec-7] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Column 'note_title' cannot be null

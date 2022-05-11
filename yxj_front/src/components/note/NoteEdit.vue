@@ -1,10 +1,9 @@
 <template>
   <div>
-    <div style="height: 100px;">
+    <div>
       <div>
         <el-button style="float: left" type="text"><i @click="goBack()" class="el-icon-d-arrow-left">退出编辑</i></el-button>
         <input class="edit-title" v-model="note.title" placeholder="请输入笔记题目"></input>
-
         <div style="float: right;margin-right: 40px">
           <el-radio v-model="note.isPublic" label="1" >公开</el-radio>
           <el-radio v-model="note.isPublic" label="0" >私密</el-radio>
@@ -37,7 +36,7 @@
           note:{
             id: null,
             title:null,
-            author:null,
+            author: {username:''},
             describe:null,
             noteType:null,
             contentMd:null,
@@ -89,6 +88,7 @@
             this.note.isPublic=parseInt(this.note.isPublic)
             this.note.contentMd=value
             this.note.contentHtml=render
+            this.note.author.username=JSON.parse(localStorage.getItem("user")).username
             _this.axios.post('/note/addNote',this.note)
               .then(function (response) {
                 if(response.data.status === 200){
