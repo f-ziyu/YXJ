@@ -1,12 +1,18 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <div class="noteTypeCss">
       <NoteTypeBar @noteTypeSelect="getUserNotesSize()" ref="noteTypeBar"></NoteTypeBar>
     </div>
-    <div class="noteCss" v-loading="loading">
+    <div class="noteCss" v-loading="loading" style="background-repeat: no-repeat; text-align: center;
+      /*  z-index:1; */
+      position: fixed;
+      background-image: url('static/images/mo_02.png');background-size: 90%;min-height: 700px">
+      <div style="margin-bottom: 50px;min-height: 650px">
       <Notes ref="notes"></Notes>
-      <div class="block" style="float: bottom;margin-top: 50px;margin-bottom: 50px">
-        <el-pagination
+      </div>
+
+      <div class="block" style="font-weight: bold;font-family: 幼圆;padding-bottom: 50px">
+        <el-pagination style=""
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"

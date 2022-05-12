@@ -6,7 +6,8 @@
       class="el-menu-demo"
       mode="horizontal"
       menu-trigger="click"
-      @select="handleSelect">
+      @select="handleSelect"
+      style="background:rgba(0,0,0,0.0)">
       <el-menu-item v-for="(item,i) in navList" :index="item.url":key="i">
         {{ item.name }}
       </el-menu-item>
@@ -16,7 +17,7 @@
         <el-menu-item id="logout" style="left: 25px;font-size: 16px;color: #dd6161" @click="logout">退出登录</el-menu-item>
       </el-submenu>
       <div style="margin-top:8px;float:left;padding-left: 150px">
-        <el-button icon="el-icon-search" style="border: none" @click="searchNote()"></el-button>
+        <el-button icon="el-icon-search" style="border: none;background:rgba(0,0,0,0.0)" @click="searchNote()"></el-button>
       </div>
     </el-menu>
   </div>

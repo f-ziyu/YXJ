@@ -1,5 +1,9 @@
 <template>
-  <div  style="margin-top:75px;margin-left: 35%;">
+  <div  style="margin-top:175px;margin-left: 35%;background-repeat: no-repeat;min-height: 600px;
+      /*  z-index:1; */
+      position: fixed;
+      right: 20%;
+      background-image: url('static/images/hua_01.png');background-size: 45%;">
     <div class="el-container">
       <div>
         <el-form ref="form" :model="registerForm" label-width="80px">
@@ -16,16 +20,16 @@
             <el-input placeholder="请确认密码" v-model="registerForm.password_sure" show-password></el-input>
           </el-form-item>
 
-          <el-form-item>
-            <div id="verify_image" @click="getVerify">
-              <img id="imgVerify" src="api/login/loginValidateCode" alt="更换验证码" height="36" width="170" >
-            </div>
-            <el-input id="imgVerifyCode_input" placeholder="请输入图形验证码" v-model="imgVerifyCode"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary"  plain @click="checkVerify">验证</el-button>
-            <el-button :type=imgVerify_status icon="el-icon-check" circle disabled></el-button>
-          </el-form-item>
+<!--          <el-form-item>-->
+<!--            <div id="verify_image" @click="getVerify">-->
+<!--              <img id="imgVerify" src="api/login/loginValidateCode" alt="更换验证码" height="36" width="170" >-->
+<!--            </div>-->
+<!--            <el-input id="imgVerifyCode_input" placeholder="请输入图形验证码" v-model="imgVerifyCode"></el-input>-->
+<!--          </el-form-item>-->
+<!--          <el-form-item>-->
+<!--            <el-button type="primary"  plain @click="checkVerify">验证</el-button>-->
+<!--            <el-button :type=imgVerify_status icon="el-icon-check" circle disabled></el-button>-->
+<!--          </el-form-item>-->
 
           <el-form-item>
             <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -50,7 +54,7 @@
         },
         imgVerifyCode:'',
         imgVerify_status:'',
-        Verify_status:false
+        Verify_status:true
       }
     },
     methods: {

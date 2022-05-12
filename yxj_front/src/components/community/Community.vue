@@ -1,5 +1,11 @@
 <template>
   <div style="margin:0 auto;">
+    <div class="noteCss" v-loading="loading" style="background-repeat: no-repeat;
+      /*  z-index:1; */
+      position: fixed;
+      background-image: url('static/images/mo_01.png');background-size: 90%;">
+
+
     <div style="min-height: 500px" v-loading="loading">
       <el-card v-for="(item,i) in notes" :key="i"  class="box-card" @click="readNote(item.id)">
         <div slot="header" class="clearFix" >
@@ -33,7 +39,7 @@
       </el-card>
     </div>
 
-    <div class="block" style="float: bottom;margin-top: 50px;margin-bottom: 50px">
+    <div class="block" style="float: bottom;margin-top: 50px;bottom: 50px">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -45,7 +51,7 @@
       </el-pagination>
     </div>
 
-
+    </div>
 
   </div>
 </template>

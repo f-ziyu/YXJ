@@ -1,0 +1,4 @@
+2022-05-11 12:32:11.752 -- [http-nio-8529-exec-3] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Data truncation: Data too long for column 'note_describe' at row 1
+2022-05-11 12:33:46.853 -- [http-nio-8529-exec-10] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Data truncation: Data too long for column 'note_describe' at row 1
+2022-05-11 12:33:58.488 -- [http-nio-8529-exec-5] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Data truncation: Data too long for column 'note_describe' at row 1
+2022-05-11 12:35:31.792 -- [http-nio-8529-exec-2] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper.logExceptions - Data truncation: Data too long for column 'note_describe' at row 1

@@ -1,9 +1,9 @@
 <template>
-  <div style="margin:0 auto;">
+  <div style="margin:0 auto;
+       background:rgba(0,0,0,0.0)">
     <div id="wu" style="display: none;margin-top: 50px">
       <h3>无</h3>
     </div>
-
     <div  v-loading="loading" style="min-height: 450px">
       <el-card v-for="(item,i) in notes" :key="i"  class="box-card" >
         <div slot="header" class="clearFix">

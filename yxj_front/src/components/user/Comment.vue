@@ -1,6 +1,6 @@
 <template>
 
-  <div style="margin:0 auto;">
+  <div style="margin:0 auto;background:rgba(0,0,0,0.0)">
     <h2>我的评论</h2>
     <div id="dis_wu" style="display: none">
       <h3>无</h3>
@@ -19,6 +19,7 @@
       <el-tooltip transition="0s" class="item" content="删除评论" placement="top-start">
         <el-button @click="deleteNoteComment(item.commentId)" style="float: right; padding: 0px 0;margin-right: 200px" type="text"><i class="el-icon-delete"></i></el-button>
       </el-tooltip>
+
     </div>
     <el-divider></el-divider><br>
   </div>
@@ -144,6 +145,7 @@
 </script>
 
 <style scoped>
+  * {margin: 0;padding: 0;background:rgba(0,0,0,0.0)}/*去掉白色边框*/
   .note {
     border: 0px solid #EBEEF5!important;
     width: 95%;

@@ -1,12 +1,17 @@
 <template>
-  <div>
+  <div style="
+background:rgba(0,0,0,0.0)">
     <div style="width: 100%; margin:0 auto; text-align:center">
       <h1>{{note.title}}</h1>
       <div>
         <span id="usernameSpan">作者: {{this.note.author.username.toString()}}</span>
         <span>创建时间: {{formatDateTime(note.createdTime)}}</span>
         <div style="text-align: left">
-          <span style="margin-left: 30px">简介: </span><br/><br/>
+          <span style="margin-left: 30px">简介: </span>
+          <el-tooltip transition="0s" class="item" content="切换阅读背景" placement="top-start">
+            <el-button @click="changeReadingBG" style="float: right; padding: 0px 0;margin-right: 100px" type="text"><i class="el-icon-files"></i></el-button>
+          </el-tooltip>
+          <br/><br/>
           <span style="margin-left: 30px">&nbsp;&nbsp;&nbsp;&nbsp;{{note.describe}}</span>
         </div>
       </div>
@@ -17,9 +22,16 @@
             <bookmark ref="bookmark"></bookmark>
           </el-col>
           <el-col :span="noteCol"  style="margin-right:20px;width: 100%;">
-            <el-card class="box-card note" shadow="never" style="margin-top: 35px;margin-bottom: 35px" v-model="note">
+            <el-card class="box-card note" shadow="never"  v-model="note">
               <el-scrollbar style="height: 100%">
-                <div v-html="note.contentHtml" class="text note-html markdown-body" style="min-height: 450px"></div>
+                <div  id="reading_bg_img" style="
+
+                border-radius: 20px;
+	               "
+                     :style="ReadingBG"
+                >
+                  <div  v-html="note.contentHtml" class="text note-html markdown-body" style="height:100%;padding: 20px;background-color: rgba(255,255,255,0.4)"></div>
+                </div>
               </el-scrollbar>
             </el-card>
           </el-col>
@@ -101,10 +113,12 @@
             commentBody:'',
             createdTime:'',
           },
-          comments:[]
+          comments:[],
+          ReadingBG: "",
         }
       },
       mounted() {
+        this.changeReadingBG()
         if(this.$route.query.noteId){
           this.loadNote(this.$route.query.noteId)
         }
@@ -173,6 +187,13 @@
             document.getElementById('editNoteButton').style.display=''
           }
         },
+        // 改变阅读背景
+        changeReadingBG(){
+          var _this = this;
+          var num = parseInt(98*Math.random())+1
+          _this.ReadingBG="background-image: url('static/images/reading_bg/reading_bg ("+num+").jpg')"
+        },
+
         // 判断编辑按钮显示状态
         checkDelete(username){
           if(username===JSON.parse(localStorage.getItem("user")).username){
